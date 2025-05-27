@@ -1,29 +1,59 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Tabs } from 'expo-router';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
-
+export default function TabLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: '#6200EE', // Color morado cuando está activo
+        tabBarInactiveTintColor: '#757575', // Color gris cuando está inactivo
+      }}
+    >
+      {/* Pantalla de Inicio */}
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Inicio',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons 
+              name="home-account" 
+              size={24} 
+              color={color} 
+            />
+          ),
+        }}
+      />
+
+      {/* Pantalla de Libros */}
+      <Tabs.Screen
+        name="books"
+        options={{
+          title: 'Biblioteca',
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons 
+              name="my-library-books" 
+              size={24} 
+              color={color} 
+            />
+          ),
+        }}
+      />
+
+      {/* Pantalla de Estantería */}
+      <Tabs.Screen
+        name="shelf"
+        options={{
+          title: 'Estantería',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons 
+              name="bookshelf" 
+              size={24} 
+              color={color} 
+            />
+          ),
+        }}
+      />
+    </Tabs>
   );
 }
