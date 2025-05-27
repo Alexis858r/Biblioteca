@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from 'expo-router';
 import { books } from '../data/books';
 import { Text, useTheme, Card, Divider } from 'react-native-paper';
-import { View, StyleSheet, ImageBackground, ScrollView } from 'react-native';
+import { View, StyleSheet, Image, ScrollView } from 'react-native';
 
 export default function BookDetails() {
   const theme = useTheme();
@@ -18,14 +18,13 @@ export default function BookDetails() {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      {/* Portada con overlay */}
+      {/* Portada del libro */}
       <View style={styles.coverContainer}>
-        <ImageBackground 
+        <Image 
           source={book.cover} 
           style={styles.coverImage}
-        >
-          <View style={styles.imageOverlay} />
-        </ImageBackground>
+          resizeMode="contain"
+        />
       </View>
 
       {/* Contenido */}
@@ -77,23 +76,19 @@ export default function BookDetails() {
 
 const styles = StyleSheet.create({
   coverContainer: {
-    height: 300,
+    height: 350,
     width: '100%',
-    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    padding: 20,
   },
   coverImage: {
-    flex: 1,
-    width: '100%',
+    width: '60%',
     height: '100%',
-    resizeMode: 'cover',
-  },
-  imageOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.3)',
   },
   contentCard: {
     margin: 16,
-    marginTop: -40,
     borderRadius: 12,
     paddingBottom: 20,
     elevation: 4,
